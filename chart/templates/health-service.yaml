@@ -1,0 +1,12 @@
+{{- if .Values.backends.healthCheck.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "deployment.fullname" . }}-health
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "deployment.labels" . | indent 6 }}
+spec:
+  type: ExternalName
+  externalName: "{{ .Values.backends.healthCheck.upstreamServer.uri }}"
+{{- end }}

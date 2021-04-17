@@ -1,0 +1,46 @@
+global:
+  ssl:
+    enabled: true
+    clusterIssuer: "letsencrypt"
+  endpoints:
+    networkName: "polkadot"
+    networkShortName: "polkadot"
+    deployment:
+      enabled: true
+      domain: "region.example.com"
+    aggregate:
+      enabled: true
+      domain: "example.com"
+backends:
+  healthCheck:
+    enabled: true
+    upstreamServer:
+      uri: "localhost"
+      port: 5000
+  websockets:
+    image: "868027517775.dkr.ecr.us-west-2.amazonaws.com/websocket-logger:v0.0.1"
+    enabled: true
+    replicas: 1
+    logClient: true
+    logServer: false
+    upstreamServer:
+      uri: "localhost"
+      port: 5000
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    scaler:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 10
+      avgCPU: 50
+      avgMem: 100Mi
+  jsonRPC:
+    enabled: true
+    upstreamServer:
+      uri: "localhost"
+      port: 5000

@@ -1,0 +1,52 @@
+{{- if .Values.backends.websockets.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "deployment.fullname" . }}-websockets-proxy
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "deployment.labels" . | indent 6 }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    {{- if .Values.global.ssl.enabled}}
+    cert-manager.io/cluster-issuer: "{{ .Values.global.ssl.clusterIssuer }}"
+  {{- end }}
+spec:
+  {{- if .Values.global.ssl.enabled }}
+  tls:
+    - hosts:
+      {{- if .Values.global.endpoints.deployment.enabled }}
+        - "{{ .Values.global.endpoints.deployment.domain }}"
+      secretName: {{ template "deployment.fullname" . }}-dep-tls
+      {{- end }}
+      {{- if .Values.global.endpoints.aggregate.enabled }}
+        - "{{ .Values.global.endpoints.aggregate.domain }}"
+      secretName: {{ template "deployment.fullname" . }}-agg-tls
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- if .Values.global.endpoints.deployment.enabled }}
+    - host: "{{ .Values.global.endpoints.deployment.domain }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ template "deployment.fullname" . }}-websockets-proxy
+                port:
+                  name: {{ .Values.global.endpoints.networkShortName }}-ws
+    {{- end }}
+    {{- if .Values.global.endpoints.aggregate.enabled }}
+    - host: "{{ .Values.global.endpoints.aggregate.domain }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ template "deployment.fullname" . }}-websockets-proxy
+                port:
+                  name: {{ .Values.global.endpoints.networkShortName }}-ws
+    {{- end }}
+{{- end }}
