@@ -12,4 +12,16 @@ entries:
     urls:
     - https://github.com/geometry-labs/substrate-api-chart/releases/download/polkadot-api-0.1.8/polkadot-api-0.1.8.tgz
     version: 0.1.8
-generated: "2021-04-17T21:56:48.59375453Z"
+  substrate-api:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-04-17T21:59:48.882511477Z"
+    description: Chart to deploy API ingress routing and logging services for Substrate
+      API
+    digest: 0b62771e3370f5d9d82893aca0fb489500538eae032c7ea9cfe3b045209b2676
+    name: substrate-api
+    type: application
+    urls:
+    - https://github.com/geometry-labs/substrate-api-chart/releases/download/substrate-api-1.0.0/substrate-api-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-04-17T21:59:48.883034498Z"
