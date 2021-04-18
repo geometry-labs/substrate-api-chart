@@ -7,10 +7,9 @@ metadata:
   labels:
 {{ include "deployment.labels" . | indent 6 }}
   annotations:
-    kubernetes.io/ingress.class: nginx
-    {{- if .Values.global.ssl.enabled}}
-    cert-manager.io/cluster-issuer: "{{ .Values.global.ssl.clusterIssuer }}"
-  {{- end }}
+    {{- range $key, $value := .Values.backends.jsonRPC.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
   {{- if .Values.global.ssl.enabled }}
   tls:
