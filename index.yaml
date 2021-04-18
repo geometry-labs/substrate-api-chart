@@ -15,6 +15,17 @@ entries:
   substrate-api:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2021-04-18T03:15:31.984105759Z"
+    description: Chart to deploy API ingress routing and logging services for Substrate
+      API
+    digest: df7a00d61cf8fffb51ca5f663257639f56cea44377e5ae529938705d9a6685f2
+    name: substrate-api
+    type: application
+    urls:
+    - https://github.com/geometry-labs/substrate-api-chart/releases/download/substrate-api-1.0.2/substrate-api-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2021-04-18T02:06:07.721906815Z"
     description: Chart to deploy API ingress routing and logging services for Substrate
       API
@@ -35,4 +46,4 @@ entries:
     urls:
     - https://github.com/geometry-labs/substrate-api-chart/releases/download/substrate-api-1.0.0/substrate-api-1.0.0.tgz
     version: 1.0.0
-generated: "2021-04-18T02:06:07.721917815Z"
+generated: "2021-04-18T03:15:31.98411746Z"
